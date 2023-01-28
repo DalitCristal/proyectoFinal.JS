@@ -1,4 +1,3 @@
-
 //! CLASS CONSTRUCTORA
 class Planta {
     constructor(indice, nombre, familia, precio){ //* Atributos
@@ -111,7 +110,7 @@ function listaProductos(listadoDePlantas) {
 */
 
 function listaProductosForEach(arr) {
-    console.log(`Nuestro catalogo:`);
+    console.log(`Nuestro stock de plantas es:`);
     arr.forEach(
         (planta)=>{
             console.log(`${planta.indice} - ${planta.nombre} de la familia ${planta.familia} y vale ${planta.precio}`);
@@ -226,14 +225,14 @@ function borrarPlanta(array) {
 
 // la function deleteOk() le pregunta al usuario si esta seguro antes de concretar la eliminacion del producto 
 function deleteOk(fn) {
-    let ask = prompt(`¿Usted esta seguro que desea eliminar definitivamente ${fn}? "si" o "no"`).toLowerCase()
+    let ask = prompt(`¿Usted esta seguro que desea eliminar definitivamente ${fn+1}? "si" o "no"`).toLowerCase()
 
     if (ask === 'si') {
         //Splice() para una vez localizado, borrarlo
         listadoDePlantas.splice(fn, 1)
         listaProductosForEach(listadoDePlantas)
     } else if (ask === 'no') {
-        console.log(`${fn} no ha sido eliminado. Gracias!`);
+        console.log(`${fn+1} no ha sido eliminado. Gracias!`);
     } else {
         console.log('Usted ha ingresado caracteres incorrectos');
     }
