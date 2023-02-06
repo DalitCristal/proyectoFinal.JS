@@ -1,0 +1,43 @@
+* {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.card{
+    margin: 16px 0px 16px 0px;
+}
+
+.card > img {
+    height: 200px;
+}
+
+#cargarPlantasNuevas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 32px;
+}
+
+#tituloInput, #familiaInput, #precioInput {
+    border: 1px solid black;
+}
+
+.darkMode {
+    color: white;
+    background-color: black;
+}
+
+.darkMode .modal {
+    color: black;
+}
+
+.darkMode .card {
+    color: black;
+}
+
+.lightMode {
+    background-color: white;
+    color: black;
+}
