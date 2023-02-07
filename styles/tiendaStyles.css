@@ -37,7 +37,7 @@
     color: black;
 }
 
-.lightMode {
-    background-color: white;
-    color: black;
+#botonCarrito > svg {
+    width: 30px;
+    height: 30px;
 }
