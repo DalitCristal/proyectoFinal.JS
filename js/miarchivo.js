@@ -43,16 +43,14 @@ const plantW = new Planta (23, 'arbol de jade', 'suculentas', 400, 'planta_arbol
 const plantX = new Planta (24, 'perforata', 'suculentas', 400, 'planta_perforata.jpg')
 
 //* seteo array
-// Crear array de objetos:
 let listadoDePlantas = []
-//condicional, evalua si hay algo en el storage
-if (localStorage.getItem('listadoDePlantas')) { //si existe
-    for (const plant of JSON.parse(localStorage.getItem('listadoDePlantas'))) { // con este for of volvemos a inicializarlo con la class constructor
+if (localStorage.getItem('listadoDePlantas')) {
+    for (const plant of JSON.parse(localStorage.getItem('listadoDePlantas'))) {
         let plantaStorage = new Planta (plant.indice, plant.nombre, plant.familia, plant.precio, plant.imagen)
         listadoDePlantas.push(plantaStorage)
         console.log(listadoDePlantas);
     }
-} else { //si no existe
+} else {
     console.log('Esta es la 1ra vez');
     listadoDePlantas.push(plantA, plantB, plantC, plantD, plantE, plantF, plantG, plantH, plantI, plantJ, plantK, plantL, plantM, plantN, plantO, plantP, plantQ, plantR, plantS, plantT, plantU, plantV, plantW, plantX)
     localStorage.setItem('listadoDePlantas', JSON.stringify(listadoDePlantas))
@@ -63,18 +61,17 @@ console.log(listadoDePlantas);
 let productosEnCarrito = JSON.parse(localStorage.getItem('carrito')) || []
 console.log(productosEnCarrito);
 //! APLICANDO DOM
-let divPlants = document.querySelector('#plants') // div main contenedor de todos los productos que haya en stock
-let guardarPlantaBtn = document.getElementById('formBtn') // ID del boton para cargar nueva planta como producto en stock
-let inputBuscador = document.getElementById('buscador') // ID que pertenece al input el cual el usuario puede buscar por nombre o por familia algun producto en stock
+let divPlants = document.querySelector('#plants') 
+let guardarPlantaBtn = document.getElementById('formBtn') 
+let inputBuscador = document.getElementById('buscador')
 let coincidencia = document.querySelector('#coincidencia') 
-let selectOrden = document.querySelector('#selectOrden') // Es el btn que contiene un sub-menu y despliega 3 opciones para ordenar la busqueda deseada
-let modal_bodyCarrito = document.querySelector('#modal_bodyCarrito') // El es div contenedor de los productos que el usuario desee colocar en el carrito, para luego ejecutar un compra
-let btnCarrito = document.querySelector('#botonCarrito') // Este es el btn el cual le va a permitir al usuario visualizar su compra
-let precioTotal = document.querySelector('#precioTotal') // captutamos un div, que se encuntra al lado de modal_bodyCarrito, donde pondremos la suma total de los productos en carrito
+let selectOrden = document.querySelector('#selectOrden') 
+let modal_bodyCarrito = document.querySelector('#modal_bodyCarrito') 
+let btnCarrito = document.querySelector('#botonCarrito') 
+let precioTotal = document.querySelector('#precioTotal')
 
 //! FUNCTIONS
 function listaProductos(array) {
-    //resetear asi no se imprime mas de una vez
     divPlants.innerHTML = ''
 
     for (let p of array) {
@@ -93,7 +90,7 @@ function listaProductos(array) {
         </div>
         `
         divPlants.appendChild(newPlantDiv)
-        let agregarBtn = document.getElementById(`agregarBtn${p.indice}`) // Este es el btn con un ID unico para cada planta
+        let agregarBtn = document.getElementById(`agregarBtn${p.indice}`)
         console.log(agregarBtn);
         agregarBtn.onclick = ()=>{
 
@@ -131,13 +128,13 @@ function existeProductoEnCarrito(planta) {
     })
 }
 
-function agregarAlCarrito(planta) { // Evaluamos si el productos ya se encuentra en el carrito
+function agregarAlCarrito(planta) {
     let productoAgregado = productosEnCarrito.find((elem)=> elem.indice === planta.indice)
 
     if (productoAgregado === undefined) {
         alertSeAgregoAlCarrito(planta)
-        productosEnCarrito.push(planta) //sumarlo al array de productos en carrito
-        localStorage.setItem('carrito', JSON.stringify(productosEnCarrito)) // setear el array en el storage
+        productosEnCarrito.push(planta)
+        localStorage.setItem('carrito', JSON.stringify(productosEnCarrito))
         console.log(productosEnCarrito);
     } else {
         existeProductoEnCarrito(planta)
@@ -145,20 +142,17 @@ function agregarAlCarrito(planta) { // Evaluamos si el productos ya se encuentra
 }
 
 function cargarPlanta(array) {
-    let inputNombre = document.getElementById('nombreInput') // Este es el input para cargar el nombre de la nueva planta que va a ser exhibida en stock
-    let inputFamilia = document.getElementById('familiaInput') // Este es el input para cargar e identificar la nueva planta que va a ser exhibida en stock
-    let inputPrecio = document.getElementById('precioInput') // Este es el input del precio que se sera aplicaado al nuevo producto en cuestion 
-    
-    // Hacerlo con la fn constructora
+    let inputNombre = document.getElementById('nombreInput') 
+    let inputFamilia = document.getElementById('familiaInput')
+    let inputPrecio = document.getElementById('precioInput') 
+
     const nuevaPlanta = new Planta(array.length+1, inputNombre.value, inputFamilia.value, Number(inputPrecio.value), 'planta_new.jpg')
     console.log(nuevaPlanta);
-    //console.log(`El precio con iva de ${nuevaPlanta.nombre} es de $${nuevaPlanta.agregamosIva()}`);
 
     array.push(nuevaPlanta)
-    //guardarlo en storage
     localStorage.setItem('listadoDePlantas', JSON.stringify(array))
     listaProductos(array)
-    let cargarPlantasNuevas = document.querySelector('#cargarPlantasNuevas') // Este es el formulario para cargar un nuevo producto, contiene a nombreInput, familiaInput y precioInput
+    let cargarPlantasNuevas = document.querySelector('#cargarPlantasNuevas')
     console.log(cargarPlantasNuevas);
     cargarPlantasNuevas.reset()
     notificacionToastify()
@@ -234,36 +228,31 @@ function adjuntarProductosAlCarrito(array) {
 function listaProdcutosEliminar(array) {
     array.forEach((planta)=> {
         document.getElementById(`btnEliminar${planta.indice}`).addEventListener('click', ()=>{
-            //Borrar del DOM
             let cardProducto = document.getElementById(`planta${planta.id}`)
             cardProducto.remove()
-            // Detecto la posicion en el array productosEnCarrito
             let posicion = array.indexOf(planta)
-            //Posicion donde comienza y cantidad a eliminar
             array.splice(posicion, 1)
-            //eliminamos del storage
             localStorage.setItem('carrito', JSON.stringify(array))
-            // recalculamos el precio de la suma del carrito
             compraTotal(array)
         })
     })
 }
 
-// Ordenar de menor a mayor
+//* Ordenar de menor a mayor
 function ordenarMenorMayor(array) {
-    const menorMayor = [].concat(array) // hacemos una copia del original, para no modificarlo
+    const menorMayor = [].concat(array)
     menorMayor.sort((a, b) => a.precio - b.precio)
     listaProductos(menorMayor)
 }
 
-// Ordenar mayor a menor
+//* Ordenar mayor a menor
 function ordenarMayorMenor(array) {
     const mayorMenor = [].concat(array)
     mayorMenor.sort((c, d) => d.precio - c.precio)
     listaProductos(mayorMenor)
 }
 
-// Ordenar alfabeticamente
+//* Ordenar alfabeticamente
 function ordenarAlfa(array) {
     const ordenadoAlfa = [].concat(array)
     ordenadoAlfa.sort((a, b) => {
