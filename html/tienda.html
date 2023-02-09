@@ -6,26 +6,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="../styles/tiendaStyles.css">
-
     <title>Final project</title>
 </head>
 <body class="">
 
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <header id="headerStyle">
+    <div class="logo" id="logo_plantisfulsoul">
+      <img src="../archivos/logo_plantisfulsoul.png" alt="Logo de planta">
+    </div>
+    
+    <div>
+      <button type="button" id="botonCarrito" class="btn btn-primary" data-bs-target="#modalCarrito" data-bs-toggle="modal">
+        <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+          width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"
+          preserveAspectRatio="xMidYMid meet">
+  
+          <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+          fill="#000000" stroke="none">
+          <path d="M145 5105 c-22 -8 -59 -34 -82 -58 -103 -109 -78 -266 55 -349 35
+          -22 49 -23 267 -28 l230 -5 65 -31 c75 -36 142 -98 176 -165 19 -39 604 -2289
+          604 -2326 0 -5 -113 -74 -251 -153 -201 -114 -263 -154 -308 -200 -103 -104
+          -158 -252 -148 -395 16 -219 143 -387 355 -468 l57 -22 1725 -3 c1346 -2 1735
+          0 1770 10 85 23 160 124 160 214 0 87 -76 191 -155 213 -28 8 -537 11 -1728
+          11 l-1688 0 -24 25 c-29 28 -32 64 -8 94 10 11 142 90 293 176 l275 155 636 0
+          c611 0 640 1 702 20 70 22 149 77 188 131 12 17 33 57 45 88 l23 56 443 5
+          c378 5 450 8 493 23 129 43 255 152 312 269 21 45 98 326 262 969 127 498 231
+          913 231 923 0 9 -11 28 -25 41 l-24 25 -1855 0 -1854 0 -12 53 c-7 28 -25 93
+          -41 142 -94 295 -352 516 -659 565 -101 15 -456 12 -505 -5z m512 -150 c79
+          -15 217 -74 263 -113 l25 -21 -51 -52 -52 -51 -44 26 c-103 60 -145 69 -386
+          75 -220 6 -224 6 -243 30 -26 32 -24 67 6 96 24 25 26 25 214 25 126 0 215 -5
+          268 -15z m422 -274 c66 -93 87 -166 391 -1356 267 -1047 304 -1183 326 -1202
+          l25 -23 700 0 c384 0 699 -3 699 -8 0 -22 -56 -85 -98 -109 l-47 -28 -670 -5
+          -670 -5 -284 -160 c-192 -108 -299 -175 -331 -205 -65 -64 -84 -135 -59 -225
+          14 -51 93 -130 146 -144 26 -8 566 -11 1726 -11 l1688 0 24 -25 c32 -31 32
+          -69 0 -101 l-24 -24 -1718 2 -1718 3 -61 28 c-77 36 -154 113 -191 192 -24 51
+          -28 73 -28 150 0 78 4 98 28 151 43 92 107 147 297 255 392 220 378 212 390
+          245 7 16 -69 326 -281 1156 -326 1278 -320 1254 -361 1327 l-30 54 48 48 c27
+          27 51 49 55 49 4 0 17 -13 28 -29z m915 -508 c11 -52 76 -486 76 -504 0 -18
+          -13 -19 -264 -19 l-264 0 -11 43 c-6 23 -36 139 -66 258 -30 118 -57 223 -61
+          232 -6 16 17 17 289 17 l295 0 6 -27z m740 -40 c3 -38 8 -122 11 -188 3 -66 8
+          -159 11 -207 l6 -88 -160 0 c-146 0 -161 -2 -186 -21 -19 -15 -26 -30 -26 -54
+          0 -24 7 -39 26 -54 25 -19 40 -21 190 -21 l164 0 1 -57 c0 -32 6 -156 12 -276
+          l12 -217 -230 0 -231 0 -78 513 c-43 281 -86 563 -96 625 l-17 112 293 0 292
+          0 6 -67z m736 50 c0 -50 -21 -454 -26 -490 l-5 -43 -263 0 -264 0 -6 83 c-3
+          45 -8 141 -11 212 -3 72 -8 158 -11 193 l-6 62 296 0 c275 0 296 -1 296 -17z
+          m737 -5 c-3 -13 -22 -137 -43 -275 l-38 -253 -267 0 -267 0 4 58 c6 83 24 433
+          24 465 l0 27 296 0 296 0 -5 -22z m672 -248 c-38 -149 -69 -273 -69 -275 0 -3
+          -119 -5 -265 -5 -147 0 -265 4 -265 9 0 5 18 124 40 266 22 142 40 261 40 266
+          0 5 130 9 294 9 l294 0 -69 -270z m-2779 -435 c0 -3 18 -122 40 -265 22 -143
+          40 -264 40 -270 0 -6 -78 -10 -230 -10 l-229 0 -10 38 c-5 20 -35 136 -66 257
+          -31 121 -58 228 -61 238 -5 16 12 17 255 17 144 0 261 -2 261 -5z m1323 -212
+          c-6 -120 -12 -244 -12 -276 l-1 -57 -232 2 -233 3 -12 215 c-6 118 -11 241
+          -12 273 l-1 57 258 0 257 0 -12 -217z m677 207 c0 -6 -18 -127 -40 -270 -22
+          -143 -40 -262 -40 -265 0 -3 -103 -5 -230 -5 l-230 0 0 23 c0 51 22 503 26
+          515 4 16 514 18 514 2z m666 -7 c-3 -10 -31 -117 -61 -238 -31 -121 -61 -237
+          -66 -257 l-10 -38 -230 0 -231 0 5 23 c3 12 22 136 43 275 l38 252 259 0 c241
+          0 258 -1 253 -17z m-2522 -935 c21 -139 40 -263 43 -275 l5 -23 -195 0 c-178
+          0 -196 2 -201 18 -3 9 -33 125 -66 257 -34 132 -64 248 -66 258 -5 16 10 17
+          219 17 l223 0 38 -252z m560 210 c5 -37 26 -441 26 -490 0 -17 -16 -18 -195
+          -18 -107 0 -195 4 -195 9 0 5 -18 124 -40 266 -22 142 -40 261 -40 266 0 5 99
+          9 219 9 l220 0 5 -42z m592 -45 c-3 -49 -8 -142 -11 -208 -3 -66 -8 -150 -11
+          -187 l-6 -68 -194 0 -194 0 0 27 c0 32 -18 382 -24 466 l-4 57 225 0 225 0 -6
+          -87z m594 68 c0 -18 -65 -452 -76 -503 l-6 -28 -194 0 -194 0 5 78 c6 81 25
+          436 25 459 0 10 44 13 220 13 208 0 220 -1 220 -19z m596 2 c-3 -10 -19 -74
+          -36 -143 -17 -69 -40 -145 -51 -169 -61 -139 -206 -226 -366 -219 l-69 3 42
+          270 c23 149 42 271 43 273 1 1 100 2 222 2 205 0 220 -1 215 -17z"/>
+          <path d="M1637 740 c-105 -27 -206 -112 -254 -215 -24 -52 -28 -72 -28 -150 0
+          -77 4 -99 28 -151 36 -77 113 -154 192 -191 52 -24 73 -28 150 -28 80 0 97 3
+          155 31 82 39 144 101 184 184 28 58 31 75 31 155 0 80 -3 97 -31 155 -62 129
+          -178 208 -316 215 -40 3 -90 0 -111 -5z m207 -177 c124 -87 140 -240 37 -343
+          -94 -93 -216 -94 -311 -2 -66 64 -84 135 -59 226 14 50 83 123 134 142 61 22
+          148 12 199 -23z"/>
+          <path d="M1675 425 c-14 -13 -25 -36 -25 -50 0 -33 42 -75 75 -75 33 0 75 42
+          75 75 0 33 -42 75 -75 75 -14 0 -37 -11 -50 -25z"/>
+          <path d="M4207 740 c-105 -27 -206 -112 -254 -215 -24 -52 -28 -72 -28 -150 0
+          -77 4 -99 28 -151 36 -77 113 -154 192 -191 52 -24 73 -28 150 -28 80 0 97 3
+          155 31 82 39 144 101 184 184 28 58 31 75 31 155 0 80 -3 97 -31 155 -62 129
+          -178 208 -316 215 -40 3 -90 0 -111 -5z m207 -177 c124 -87 140 -240 37 -343
+          -94 -93 -216 -94 -311 -2 -66 64 -84 135 -59 226 14 50 83 123 134 142 61 22
+          148 12 199 -23z"/>
+          <path d="M4245 425 c-14 -13 -25 -36 -25 -50 0 -33 42 -75 75 -75 33 0 75 42
+          75 75 0 33 -42 75 -75 75 -14 0 -37 -11 -50 -25z"/>
+          </g>
+        </svg>
+      </button>
+    </div>
+          
+    <div>
+      <button type="button" class="btn" id="btnAgregarPlanta"  data-bs-toggle="modal" data-bs-target="#modalCargar">
+        Agregar planta
+      </button>
+      <button id="toggleMode" class="btn btn-dark">Dark</button>
+    </div>
+
+  </header>
+
+  <nav class="navbar navbar-expand-lg" id="colorNav">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">LOGO</a>
+        <a id="tituloNav" class="navbar-brand" href="../index.html">Soul full of plant</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse container" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse navEstilosPropios" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="personalizarNav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+              <a id="btnInicio" class="nav-link active" aria-current="page" href="../index.html">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" id="nosotros">Nosotros</a>
+              <a  class="nav-link" href="../html/nosotros.html" id="nosotros">Nosotros</a>
             </li>
 
             <ul>
@@ -36,99 +128,17 @@
                 <option value="3">Alfabeticamente</option>
               </select>
             </ul>
-
           </ul>
 
           <form class="d-flex" role="search">
             <input id="buscador" class="form-control me-2" type="search" placeholder="Buscar planta" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <button id="btnBuscar" class="btn" type="submit">Buscar</button>
           </form>
-
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCargar">
-            Agregar planta
-          </button>
-
-          <button type="button" id="botonCarrito" class="btn btn-primary" data-bs-target="#modalCarrito" data-bs-toggle="modal">
-            <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-              width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"
-              preserveAspectRatio="xMidYMid meet">
-
-              <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-              fill="#000000" stroke="none">
-              <path d="M145 5105 c-22 -8 -59 -34 -82 -58 -103 -109 -78 -266 55 -349 35
-              -22 49 -23 267 -28 l230 -5 65 -31 c75 -36 142 -98 176 -165 19 -39 604 -2289
-              604 -2326 0 -5 -113 -74 -251 -153 -201 -114 -263 -154 -308 -200 -103 -104
-              -158 -252 -148 -395 16 -219 143 -387 355 -468 l57 -22 1725 -3 c1346 -2 1735
-              0 1770 10 85 23 160 124 160 214 0 87 -76 191 -155 213 -28 8 -537 11 -1728
-              11 l-1688 0 -24 25 c-29 28 -32 64 -8 94 10 11 142 90 293 176 l275 155 636 0
-              c611 0 640 1 702 20 70 22 149 77 188 131 12 17 33 57 45 88 l23 56 443 5
-              c378 5 450 8 493 23 129 43 255 152 312 269 21 45 98 326 262 969 127 498 231
-              913 231 923 0 9 -11 28 -25 41 l-24 25 -1855 0 -1854 0 -12 53 c-7 28 -25 93
-              -41 142 -94 295 -352 516 -659 565 -101 15 -456 12 -505 -5z m512 -150 c79
-              -15 217 -74 263 -113 l25 -21 -51 -52 -52 -51 -44 26 c-103 60 -145 69 -386
-              75 -220 6 -224 6 -243 30 -26 32 -24 67 6 96 24 25 26 25 214 25 126 0 215 -5
-              268 -15z m422 -274 c66 -93 87 -166 391 -1356 267 -1047 304 -1183 326 -1202
-              l25 -23 700 0 c384 0 699 -3 699 -8 0 -22 -56 -85 -98 -109 l-47 -28 -670 -5
-              -670 -5 -284 -160 c-192 -108 -299 -175 -331 -205 -65 -64 -84 -135 -59 -225
-              14 -51 93 -130 146 -144 26 -8 566 -11 1726 -11 l1688 0 24 -25 c32 -31 32
-              -69 0 -101 l-24 -24 -1718 2 -1718 3 -61 28 c-77 36 -154 113 -191 192 -24 51
-              -28 73 -28 150 0 78 4 98 28 151 43 92 107 147 297 255 392 220 378 212 390
-              245 7 16 -69 326 -281 1156 -326 1278 -320 1254 -361 1327 l-30 54 48 48 c27
-              27 51 49 55 49 4 0 17 -13 28 -29z m915 -508 c11 -52 76 -486 76 -504 0 -18
-              -13 -19 -264 -19 l-264 0 -11 43 c-6 23 -36 139 -66 258 -30 118 -57 223 -61
-              232 -6 16 17 17 289 17 l295 0 6 -27z m740 -40 c3 -38 8 -122 11 -188 3 -66 8
-              -159 11 -207 l6 -88 -160 0 c-146 0 -161 -2 -186 -21 -19 -15 -26 -30 -26 -54
-              0 -24 7 -39 26 -54 25 -19 40 -21 190 -21 l164 0 1 -57 c0 -32 6 -156 12 -276
-              l12 -217 -230 0 -231 0 -78 513 c-43 281 -86 563 -96 625 l-17 112 293 0 292
-              0 6 -67z m736 50 c0 -50 -21 -454 -26 -490 l-5 -43 -263 0 -264 0 -6 83 c-3
-              45 -8 141 -11 212 -3 72 -8 158 -11 193 l-6 62 296 0 c275 0 296 -1 296 -17z
-              m737 -5 c-3 -13 -22 -137 -43 -275 l-38 -253 -267 0 -267 0 4 58 c6 83 24 433
-              24 465 l0 27 296 0 296 0 -5 -22z m672 -248 c-38 -149 -69 -273 -69 -275 0 -3
-              -119 -5 -265 -5 -147 0 -265 4 -265 9 0 5 18 124 40 266 22 142 40 261 40 266
-              0 5 130 9 294 9 l294 0 -69 -270z m-2779 -435 c0 -3 18 -122 40 -265 22 -143
-              40 -264 40 -270 0 -6 -78 -10 -230 -10 l-229 0 -10 38 c-5 20 -35 136 -66 257
-              -31 121 -58 228 -61 238 -5 16 12 17 255 17 144 0 261 -2 261 -5z m1323 -212
-              c-6 -120 -12 -244 -12 -276 l-1 -57 -232 2 -233 3 -12 215 c-6 118 -11 241
-              -12 273 l-1 57 258 0 257 0 -12 -217z m677 207 c0 -6 -18 -127 -40 -270 -22
-              -143 -40 -262 -40 -265 0 -3 -103 -5 -230 -5 l-230 0 0 23 c0 51 22 503 26
-              515 4 16 514 18 514 2z m666 -7 c-3 -10 -31 -117 -61 -238 -31 -121 -61 -237
-              -66 -257 l-10 -38 -230 0 -231 0 5 23 c3 12 22 136 43 275 l38 252 259 0 c241
-              0 258 -1 253 -17z m-2522 -935 c21 -139 40 -263 43 -275 l5 -23 -195 0 c-178
-              0 -196 2 -201 18 -3 9 -33 125 -66 257 -34 132 -64 248 -66 258 -5 16 10 17
-              219 17 l223 0 38 -252z m560 210 c5 -37 26 -441 26 -490 0 -17 -16 -18 -195
-              -18 -107 0 -195 4 -195 9 0 5 -18 124 -40 266 -22 142 -40 261 -40 266 0 5 99
-              9 219 9 l220 0 5 -42z m592 -45 c-3 -49 -8 -142 -11 -208 -3 -66 -8 -150 -11
-              -187 l-6 -68 -194 0 -194 0 0 27 c0 32 -18 382 -24 466 l-4 57 225 0 225 0 -6
-              -87z m594 68 c0 -18 -65 -452 -76 -503 l-6 -28 -194 0 -194 0 5 78 c6 81 25
-              436 25 459 0 10 44 13 220 13 208 0 220 -1 220 -19z m596 2 c-3 -10 -19 -74
-              -36 -143 -17 -69 -40 -145 -51 -169 -61 -139 -206 -226 -366 -219 l-69 3 42
-              270 c23 149 42 271 43 273 1 1 100 2 222 2 205 0 220 -1 215 -17z"/>
-              <path d="M1637 740 c-105 -27 -206 -112 -254 -215 -24 -52 -28 -72 -28 -150 0
-              -77 4 -99 28 -151 36 -77 113 -154 192 -191 52 -24 73 -28 150 -28 80 0 97 3
-              155 31 82 39 144 101 184 184 28 58 31 75 31 155 0 80 -3 97 -31 155 -62 129
-              -178 208 -316 215 -40 3 -90 0 -111 -5z m207 -177 c124 -87 140 -240 37 -343
-              -94 -93 -216 -94 -311 -2 -66 64 -84 135 -59 226 14 50 83 123 134 142 61 22
-              148 12 199 -23z"/>
-              <path d="M1675 425 c-14 -13 -25 -36 -25 -50 0 -33 42 -75 75 -75 33 0 75 42
-              75 75 0 33 -42 75 -75 75 -14 0 -37 -11 -50 -25z"/>
-              <path d="M4207 740 c-105 -27 -206 -112 -254 -215 -24 -52 -28 -72 -28 -150 0
-              -77 4 -99 28 -151 36 -77 113 -154 192 -191 52 -24 73 -28 150 -28 80 0 97 3
-              155 31 82 39 144 101 184 184 28 58 31 75 31 155 0 80 -3 97 -31 155 -62 129
-              -178 208 -316 215 -40 3 -90 0 -111 -5z m207 -177 c124 -87 140 -240 37 -343
-              -94 -93 -216 -94 -311 -2 -66 64 -84 135 -59 226 14 50 83 123 134 142 61 22
-              148 12 199 -23z"/>
-              <path d="M4245 425 c-14 -13 -25 -36 -25 -50 0 -33 42 -75 75 -75 33 0 75 42
-              75 75 0 33 -42 75 -75 75 -14 0 -37 -11 -50 -25z"/>
-              </g>
-            </svg>
-          </button>
 
         </div>
       </div>
   </nav>
-  <div class="col-2">
-    <button id="toggleMode" class="btn btn-dark">Dark</button>
-  </div>
+
 
   <section class="container">
     <div id="coincidencia"></div>
@@ -143,7 +153,7 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar planta</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" id="body_modal">
           <form id="cargarPlantasNuevas">
 
             <label for="nombre">Nombre:</label>
@@ -186,8 +196,72 @@
       </div>
     </div>
   </div>
-    <!-- Librerias -->
+
+  <footer class="footer">
+    <div class="email">
+        <svg id="svg_email" width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M31.375 7.9375C29.9375 9.0625 28.125 10.4375 21.75 15.0625C20.5 16 18.1875 18.0625 16 18.0625C13.75 18.0625 11.5 16 10.1875 15.0625C3.8125 10.4375 2 9.0625 0.5625 7.9375C0.3125 7.75 0 7.9375 0 8.25V21C0 22.6875 1.3125 24 3 24H29C30.625 24 32 22.6875 32 21V8.25C32 7.9375 31.625 7.75 31.375 7.9375ZM16 16C17.4375 16.0625 19.5 14.1875 20.5625 13.4375C28.875 7.4375 29.5 6.875 31.375 5.375C31.75 5.125 32 4.6875 32 4.1875V3C32 1.375 30.625 0 29 0H3C1.3125 0 0 1.375 0 3V4.1875C0 4.6875 0.1875 5.125 0.5625 5.375C2.4375 6.875 3.0625 7.4375 11.375 13.4375C12.4375 14.1875 14.5 16.0625 16 16Z" fill="#BB8246"/>
+            </svg>
+        <p>
+            plantisfulsoul@gmail.com
+        </p>
+    </div>
+    
+    <div class="ubicacion">
+    <svg id="svg_ubicacion" style="enable-background:new 0 0 150 150;" version="1.1" viewBox="0 0 150 150" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
+        .st0{fill:#1A73E8;}
+        .st1{fill:#EA4335;}
+        .st2{fill:#4285F4;}
+        .st3{fill:#FBBC04;}
+        .st4{fill:#34A853;}
+        .st5{fill:#4CAF50;}
+        .st6{fill:#1E88E5;}
+        .st7{fill:#E53935;}
+        .st8{fill:#C62828;}
+        .st9{fill:#FBC02D;}
+        .st10{fill:#1565C0;}
+        .st11{fill:#2E7D32;}
+        .st12{fill:#F6B704;}
+        .st13{fill:#E54335;}
+        .st14{fill:#4280EF;}
+        .st15{fill:#34A353;}
+        .st16{clip-path:url(#SVGID_2_);}
+        .st17{fill:#188038;}
+        .st18{opacity:0.2;fill:#FFFFFF;enable-background:new    ;}
+        .st19{opacity:0.3;fill:#0D652D;enable-background:new    ;}
+        .st20{clip-path:url(#SVGID_4_);}
+        .st21{opacity:0.3;fill:url(#_45_shadow_1_);enable-background:new    ;}
+        .st22{clip-path:url(#SVGID_6_);}
+        .st23{fill:#FA7B17;}
+        .st24{opacity:0.3;fill:#174EA6;enable-background:new    ;}
+        .st25{opacity:0.3;fill:#A50E0E;enable-background:new    ;}
+        .st26{opacity:0.3;fill:#E37400;enable-background:new    ;}
+        .st27{fill:url(#Finish_mask_1_);}
+        .st28{fill:#FFFFFF;}
+        .st29{fill:#0C9D58;}
+        .st30{opacity:0.2;fill:#004D40;enable-background:new    ;}
+        .st31{opacity:0.2;fill:#3E2723;enable-background:new    ;}
+        .st32{fill:#FFC107;}
+        .st33{opacity:0.2;fill:#1A237E;enable-background:new    ;}
+        .st34{opacity:0.2;}
+        .st35{fill:#1A237E;}
+        .st36{fill:url(#SVGID_7_);}
+        .st37{fill:#FBBC05;}
+        .st38{clip-path:url(#SVGID_9_);fill:#E53935;}
+        .st39{clip-path:url(#SVGID_11_);fill:#FBC02D;}
+        .st40{clip-path:url(#SVGID_13_);fill:#E53935;}
+        .st41{clip-path:url(#SVGID_15_);fill:#FBC02D;}
+    </style><g><path class="st0" d="M85.1,28.5c-3.2-1-6.6-1.6-10.1-1.6c-10.3,0-19.5,4.7-25.7,12l15.9,13.3L85.1,28.5z"/><path class="st1" d="M49.3,38.9c-4.9,5.8-7.9,13.4-7.9,21.6c0,6.3,1.3,11.4,3.3,16l20.4-24.2L49.3,38.9z"/><path class="st2" d="M75,47.6c7.1,0,12.8,5.7,12.8,12.8c0,3.2-1.1,6.1-3,8.3c0,0,10.1-12.1,20-23.8c-4.1-7.8-11.1-13.8-19.6-16.5   l-20,23.8C67.5,49.4,71,47.6,75,47.6"/><path class="st3" d="M75,73.3c-7.1,0-12.8-5.7-12.8-12.8c0-3.1,1.1-6,3-8.2L44.8,76.5C48.2,84.2,54,90.4,60,98.2l24.8-29.5   C82.5,71.5,78.9,73.3,75,73.3"/><path class="st4" d="M84.3,106.3c11.2-17.5,24.3-25.5,24.3-45.8c0-5.6-1.4-10.8-3.8-15.5L60,98.2c1.9,2.5,3.8,5.1,5.7,8.1   c6.8,10.5,4.9,16.8,9.3,16.8C79.4,123.1,77.5,116.8,84.3,106.3"/></g></svg>
+
+    
+    <p>Argentina - Córdoba - Villa Carlos Paz</p> 
+    </div>
+</footer>
+
+    <!-- Libreria sweetAlert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Toastify -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>

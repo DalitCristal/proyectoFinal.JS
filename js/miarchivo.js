@@ -60,14 +60,8 @@ if (localStorage.getItem('listadoDePlantas')) { //si existe
 console.log(listadoDePlantas);
 
 //! CONDICIONAL
-let productosEnCarrito
-if (localStorage.getItem('carrito')) {
-    productosEnCarrito = JSON.parse(localStorage.getItem('carrito'))
-} else {
-    productosEnCarrito = []
-    localStorage.setItem('carrito', productosEnCarrito)
-}
-
+let productosEnCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+console.log(productosEnCarrito);
 //! APLICANDO DOM
 let divPlants = document.querySelector('#plants') // div main contenedor de todos los productos que haya en stock
 let guardarPlantaBtn = document.getElementById('formBtn') // ID del boton para cargar nueva planta como producto en stock
@@ -90,10 +84,10 @@ function listaProductos(array) {
         newPlantDiv.innerHTML = `
         <div id="${p.indice}" class="card" style="width: 18rem;">
             <img src="../archivos/${p.imagen}" class="card-img-top img-fluid" alt="${p.nombre}">
-            <div class="card-body">
+            <div class="card-body" id='decoracionPropia'>
                 <h5 class="card-title">${p.nombre}</h5>
                 <p class="card-text">Familia: ${p.familia}</p>
-                <p class="card-text">Precio: ${p.precio}</p>
+                <p class="card-text">Precio: $${p.precio}</p>
                 <a id="agregarBtn${p.indice}" class="btn btn-primary">Agregar al carrito</a>
             </div>
         </div>
@@ -109,11 +103,87 @@ function listaProductos(array) {
 }
 
 function compraTotal(array) {
-    let acumulador = 0
-    for (const produ of array) {
-        acumulador = acumulador + produ.precio
+    let total = array.reduce((acc, productosEnCarrito)=> acc + productosEnCarrito.precio, 0)
+
+    total === 0 ? (precioTotal.innerHTML = `El carrito se encuentra vacio`) : (precioTotal.innerHTML = `El precio total es $${total}`)
+    
+}
+
+function alertSeAgregoAlCarrito(planta) {
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: `La planta ${planta.nombre} ha sido agregada al carrito`,
+        showConfirmButton: false,
+        timer: 1500,
+        background: '#f3f3f3'
+    })
+}
+
+function existeProductoEnCarrito(planta) {
+    Swal.fire({
+        position: 'center',
+        text: `Ya existe un producto llamado ${planta.nombre} en el carrito`,
+        icon: 'info',
+        confirmButtonText: 'Ok',
+        background: '#f3f3f3',
+        confirmButtonColor: '#474F1D'
+    })
+}
+
+function agregarAlCarrito(planta) { // Evaluamos si el productos ya se encuentra en el carrito
+    let productoAgregado = productosEnCarrito.find((elem)=> elem.indice === planta.indice)
+
+    if (productoAgregado === undefined) {
+        alertSeAgregoAlCarrito(planta)
+        productosEnCarrito.push(planta) //sumarlo al array de productos en carrito
+        localStorage.setItem('carrito', JSON.stringify(productosEnCarrito)) // setear el array en el storage
+        console.log(productosEnCarrito);
+    } else {
+        existeProductoEnCarrito(planta)
     }
-    precioTotal.innerHTML = `El precio es $${acumulador}`
+}
+
+function cargarPlanta(array) {
+    let inputNombre = document.getElementById('nombreInput') // Este es el input para cargar el nombre de la nueva planta que va a ser exhibida en stock
+    let inputFamilia = document.getElementById('familiaInput') // Este es el input para cargar e identificar la nueva planta que va a ser exhibida en stock
+    let inputPrecio = document.getElementById('precioInput') // Este es el input del precio que se sera aplicaado al nuevo producto en cuestion 
+    
+    // Hacerlo con la fn constructora
+    const nuevaPlanta = new Planta(array.length+1, inputNombre.value, inputFamilia.value, Number(inputPrecio.value), 'planta_new.jpg')
+    console.log(nuevaPlanta);
+    //console.log(`El precio con iva de ${nuevaPlanta.nombre} es de $${nuevaPlanta.agregamosIva()}`);
+
+    array.push(nuevaPlanta)
+    //guardarlo en storage
+    localStorage.setItem('listadoDePlantas', JSON.stringify(array))
+    listaProductos(array)
+    let cargarPlantasNuevas = document.querySelector('#cargarPlantasNuevas') // Este es el formulario para cargar un nuevo producto, contiene a nombreInput, familiaInput y precioInput
+    console.log(cargarPlantasNuevas);
+    cargarPlantasNuevas.reset()
+    notificacionToastify()
+}
+
+function notificacionToastify() {
+    Toastify({
+        text: 'La planta ha sido agregada con exito al stock',
+        duration: 2000,
+        gravity: "top",
+        position: "right",
+        style: {
+          background: "linear-gradient(to right, #f3f3f3, #DDC297)",
+          color: '#000'
+        },
+    }).showToast();
+}
+
+//* Busqueda parcial con input por nombre y familia
+function busqueda(buscado, array) {
+    let buscadorInput = array.filter(
+            (planta) => planta.familia.toLowerCase().includes(buscado) || planta.nombre.toLowerCase().includes(buscado)
+        )
+    buscadorInput.length === 0 ? (coincidencia.innerHTML = `<h3>No hay resultados con su búsqueda</h3>`, listaProductos(buscadorInput)) : (coincidencia.innerHTML = '', listaProductos(buscadorInput))
+
 }
 
 function adjuntarProductosAlCarrito(array) {
@@ -121,12 +191,12 @@ function adjuntarProductosAlCarrito(array) {
     
     array.forEach((planta) => {
         modal_bodyCarrito.innerHTML += `
-        <div class="card border-primary mb-3" id="${planta.id}" style="max-width: 540px;">
-            <img src="../archivos/${planta.imagen}" class="card-img-top" height="300px" alt="${planta.nombre}">
+        <div class="card border-primary mb-3 cardCarrito" id="${planta.id}">
+            <img src="../archivos/${planta.imagen}" class="card-img-top" height="100px" alt="${planta.nombre}">
             <div class="card-body">
                 <h5 class="card-title">${planta.nombre}</h5>
                 <p class="card-text">$${planta.precio}</p>
-                <button class="btn btn-danger" id="btnEliminar${planta.id}">
+                <button class="btn btn-danger" id="btnEliminar${planta.indice}">
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                 width="25px" height="25px" viewBox="0 0 512.000000 512.000000"
                 preserveAspectRatio="xMidYMid meet">
@@ -157,54 +227,16 @@ function adjuntarProductosAlCarrito(array) {
         </div>
         `
     });
+    listaProdcutosEliminar(array)
     compraTotal(array)
 }
 
-function agregarAlCarrito(planta) { // Evaluamos si el productos ya se encuentra en el carrito
-    let productoAgregado = productosEnCarrito.find((elem)=> elem.indice === planta.indice)
-
-    if (productoAgregado === undefined) {
-        console.log(`La planta ${planta.nombre} ha sido agregada al carrito, tiene un valor de $${planta.precio}`);
-        productosEnCarrito.push(planta) //sumarlo al array de productos en carrito
-        localStorage.setItem('carrito', JSON.stringify(productosEnCarrito)) // setear el array en el storage
-        console.log(productosEnCarrito);
-    } else {
-        console.log(`Ya existe el producto "${planta.nombre}" en el carrito`);
-    }
-}
-
-function cargarPlanta(array) {
-    let inputNombre = document.getElementById('nombreInput') // Este es el input para cargar el nombre de la nueva planta que va a ser exhibida en stock
-    let inputFamilia = document.getElementById('familiaInput') // Este es el input para cargar e identificar la nueva planta que va a ser exhibida en stock
-    let inputPrecio = document.getElementById('precioInput') // Este es el input del precio que se sera aplicaado al nuevo producto en cuestion 
-    
-    // Hacerlo con la fn constructora
-    const nuevaPlanta = new Planta(array.length+1, inputNombre.value, inputFamilia.value, Number(inputPrecio.value), 'planta_new.jpg')
-    console.log(nuevaPlanta);
-    //console.log(`El precio con iva de ${nuevaPlanta.nombre} es de $${nuevaPlanta.agregamosIva()}`);
-
-    array.push(nuevaPlanta)
-    //guardarlo en storage
-    localStorage.setItem('listadoDePlantas', JSON.stringify(array))
-    listaProductos(array)
-    let cargarPlantasNuevas = document.querySelector('#cargarPlantasNuevas') // Este es el formulario para cargar un nuevo producto, contiene a nombreInput, familiaInput y precioInput
-    console.log(cargarPlantasNuevas);
-    cargarPlantasNuevas.reset()
-}
-
-//* Busqueda parcial con input por nombre y familia
-function busqueda(buscado, array) {
-    let buscadorInput = array.filter(
-            (planta) => planta.familia.toLowerCase().includes(buscado) || planta.nombre.toLowerCase().includes(buscado)
-        )
-
-    if (buscadorInput.length === 0) {
-        coincidencia.innerHTML = `<h3>No hay coincidencia con su búsqueda</h3>`
-        listaProductos(buscadorInput)
-    } else {
-        coincidencia.innerHTML = ''
-        listaProductos(buscadorInput)
-    }
+function listaProdcutosEliminar(array) {
+    array.forEach((planta)=> {
+        document.getElementById(`btnEliminar${planta.indice}`).addEventListener('click', ()=>{
+            console.log(`btn ${planta.indice} elimiar funciona`);
+        })
+    })
 }
 
 // Ordenar de menor a mayor
@@ -228,6 +260,7 @@ function ordenarAlfa(array) {
         if (a.nombre > b.nombre) {
             return 1
         }
+        (a.nombre > b.nombre && 1)
         if (a.nombre < b.nombre) {
             return -1
         }
@@ -264,3 +297,4 @@ btnCarrito.addEventListener('click', () => {
 
 //! CODIGO
 listaProductos(listadoDePlantas)
+

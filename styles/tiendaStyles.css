@@ -1,7 +1,127 @@
-* {
-    margin: 0 auto;
-    padding: 0;
+:root {
+    --first-color:  #474F1D;
+    --second-color: #DDC297;
+    --third-color: #BB8246;
+    --white-color: #fff;
+    --gray-light-color: #f3f3f3;
+    --gray-color: #ccc;
+    --gray-dark-color: #666;
+    --black-color: #000;
+    --link-color: #509ee3;
+    --title-color: #333;
+    --text-color: #222;
+    --font: 'Roboto Slab', serif;
+    --darkMode: #1F2023;
+    --darkModeModal: #27282D;
+}
+
+
+
+/*! Reset (Resetear)*/
+html {
     box-sizing: border-box;
+    font-family: var(--font);
+    font-size: 16px;
+    scroll-behavior: smooth; /* Transición de los botones de barra de navegación  */
+}
+  
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden; /* Esa propiedad seria... "¿Que pasa con los que desborda?, en este caso lo ocutamos(hidden)" */
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link-color);
+  transition: all 0.5s ease-out;
+}
+
+a:hover {
+  opacity: 0.75;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+h5 {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+h6 {
+  margin: 0;
+  font-size: 0.7rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* !ORDENADO POR ORDEN ALFABETO */
+#botonCarrito{
+    padding: 10px 25px;
+    background-color: var(--third-color);
+    border: none;
+}
+
+#botonCarrito:hover {
+  background-color: var(--first-color);
+  box-shadow: var(--black-color) 3px 3px;
+}
+
+#botonCarrito > svg {
+    width: 30px;
+    height: 30px;
+}
+
+#btnAgregarPlanta:hover {
+    color: var(--white-color);
+    background-color: var(--first-color);
+}
+
+#btnInicio, #nosotros {
+    border: none;
+    border-radius: 2.5px;
+    color: var(--white-color);
+    font-size: 1.5rem;
+}
+
+#btnBuscar {
+    font-size: 1.5rem;
+    color: var(--white-color);
+}
+
+#btnBuscar:hover, #btnInicio:hover, #nosotros:hover {
+    border-radius: 5px;
+    background-color:  var(--first-color);
 }
 
 .card{
@@ -9,7 +129,19 @@
 }
 
 .card > img {
-    height: 200px;
+  height: 200px;
+}
+
+.cardCarrito {
+  display: flex;
+  align-items: center;
+  max-width: 540px;
+  background-color: var(--third-color);
+}
+
+.cardCarrito > div > h5 {
+  font-size: 25px;
+  font-weight: bold;
 }
 
 #cargarPlantasNuevas{
@@ -20,24 +152,126 @@
     margin: 32px;
 }
 
-#tituloInput, #familiaInput, #precioInput {
-    border: 1px solid black;
+#colorNav {
+    background-color: var(--second-color);
 }
 
 .darkMode {
-    color: white;
-    background-color: black;
-}
-
-.darkMode .modal {
-    color: black;
+    color: var(--white-color);
+    background-color: var(--darkMode);
 }
 
 .darkMode .card {
-    color: black;
+    color: var(--darkMode);
 }
 
-#botonCarrito > svg {
+.darkMode > svg {
     width: 30px;
     height: 30px;
+}
+
+.darkMode .modal {
+    color: var(--darkModeModal);
+}
+
+#decoracionPropia {
+  background-color: var(--second-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#decoracionPropia > a {
+  background-color: var(--third-color);
+  border: none;
+}
+
+#decoracionPropia > h5 {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#decoracionPropia > p {
+    font-size: 16px;
+}
+
+#familiaInput, #tituloInput, #precioInput {
+    border: 1px solid var(--black-color);
+}
+
+#headerStyle {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--second-color);
+}
+
+#logo_plantisfulsoul {
+    padding: 0.5rem;
+    width: 100px;
+    height: 100px;
+}
+
+.navEstilosPropios {
+padding: 0px 0px 0px 250px;
+}
+
+#personalizarNav {
+  display: flex;
+  align-items: center;
+}
+
+#precioTotal {
+  font-weight: bold;
+  margin: 0px 30px;
+}
+
+#tituloNav {
+  font-size: 40px;
+  font-weight: lighter;
+  padding: 0px 25px;
+}
+
+
+/*! FOOTER */
+.email {
+  display: flex;
+  align-items: center;
+}
+
+.footer {
+  background-color: var(--second-color);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 16px;
+}
+
+#svg_email {
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  color: var(--black-color);
+}
+
+#svg_ubicacion {
+  width: 35px;
+  height: 35px;
+  margin: 7px;
+}
+
+.ubicacion {
+  display: flex;
+  align-items: center;
+}
+
+/*! MEDIA QUERIES */
+@media screen and (min-width: 768px) {
+  /*! FOOTER */
+  .footer {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 20px;
+  }
 }
