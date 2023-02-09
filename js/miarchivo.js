@@ -186,7 +186,7 @@ function adjuntarProductosAlCarrito(array) {
     
     array.forEach((planta) => {
         modal_bodyCarrito.innerHTML += `
-        <div class="card border-primary mb-3 cardCarrito" id="planta${planta.id}">
+        <div class="card border-primary mb-3 cardCarrito" id="planta${planta.indice}">
             <img src="../archivos/${planta.imagen}" class="card-img-top" height="100px" alt="${planta.nombre}">
             <div class="card-body">
                 <h5 class="card-title">${planta.nombre}</h5>
@@ -229,7 +229,7 @@ function adjuntarProductosAlCarrito(array) {
 function listaProductosEliminar(array) {
     array.forEach((planta)=> {
         document.getElementById(`btnEliminar${planta.indice}`).addEventListener('click', ()=>{
-            let cardProducto = document.getElementById(`planta${planta.id}`)
+            let cardProducto = document.getElementById(`planta${planta.indice}`)
             cardProducto.remove()
             let productoAEliminar = array.find(productoC => productoC.indice === planta.indice)
             let posicion = array.indexOf(productoAEliminar)
