@@ -69,6 +69,7 @@ let selectOrden = document.querySelector('#selectOrden')
 let modal_bodyCarrito = document.querySelector('#modal_bodyCarrito') 
 let btnCarrito = document.querySelector('#botonCarrito') 
 let precioTotal = document.querySelector('#precioTotal')
+let btnFinalizarCompra = document.querySelector('#btnFinalizarCompra')
 
 //! FUNCTIONS
 function listaProductos(array) {
@@ -221,16 +222,17 @@ function adjuntarProductosAlCarrito(array) {
         </div>
         `
     });
-    listaProdcutosEliminar(array)
+    listaProductosEliminar(array)
     compraTotal(array)
 }
 
-function listaProdcutosEliminar(array) {
+function listaProductosEliminar(array) {
     array.forEach((planta)=> {
         document.getElementById(`btnEliminar${planta.indice}`).addEventListener('click', ()=>{
             let cardProducto = document.getElementById(`planta${planta.id}`)
             cardProducto.remove()
-            let posicion = array.indexOf(planta)
+            let productoAEliminar = array.find(productoC => productoC.indice === planta.indice)
+            let posicion = array.indexOf(productoAEliminar)
             array.splice(posicion, 1)
             localStorage.setItem('carrito', JSON.stringify(array))
             compraTotal(array)
@@ -256,16 +258,34 @@ function ordenarMayorMenor(array) {
 function ordenarAlfa(array) {
     const ordenadoAlfa = [].concat(array)
     ordenadoAlfa.sort((a, b) => {
-        if (a.nombre > b.nombre) {
+        if (a.nombre.toLowerCase() > b.nombre.toLowerCase()) {
             return 1
         }
-        (a.nombre > b.nombre && 1)
-        if (a.nombre < b.nombre) {
+        if (a.nombre.toLowerCase() < b.nombre.toLowerCase()) {
             return -1
         }
         return 0
     })
     listaProductos(ordenadoAlfa)
+}
+
+function  finalizarCompra() {
+    Swal.fire({
+        title: '<strong>¡Muchas gracias por su compra!</strong>',
+        icon: 'success',
+        html:
+          'Si lo desea en el siguiente enlace usted puede seguirnos en instagram y enterarse de nuestros ultimos lanzamientos ' +
+          '<a href="https://www.instagram.com/mercadodelatierra/">link</a> ',
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:
+          '<i class="fa fa-thumbs-up"></i><svg width="30px" height="30px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M786.197333 1002.666667H256a21.333333 21.333333 0 0 1-21.333333-21.333334V512a21.333333 21.333333 0 0 1 0.746666-5.610667l128-469.333333A21.333333 21.333333 0 0 1 384 21.333333c82.346667 0 149.333333 66.986667 149.333333 149.333334v234.666666h298.816c43.626667 0 84.928 18.986667 113.344 52.096a149.162667 149.162667 0 0 1 34.24 119.936l-45.952 298.666667A148.544 148.544 0 0 1 786.197333 1002.666667z" fill="#EAD8C5" /><path d="M234.666667 490.666667H42.666667a21.333333 21.333333 0 0 0-21.333334 21.333333v469.333333a21.333333 21.333333 0 0 0 21.333334 21.333334h192V490.666667z" fill="#444444" /></svg>',
+        confirmButtonAriaLabel: 'Thumbs up, great!',
+        cancelButtonText:
+          '<i class="fa fa-thumbs-down"></i><svg width="30px" height="30px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M786.176 21.333333H256a21.333333 21.333333 0 0 0-21.333333 21.333334v469.333333a21.333333 21.333333 0 0 0 0.746666 5.610667l128 469.333333A21.333333 21.333333 0 0 0 384 1002.666667c82.346667 0 149.333333-66.986667 149.333333-149.333334V618.666667h298.816c43.605333 0 84.928-18.986667 113.344-52.096a149.162667 149.162667 0 0 0 34.24-119.936l-45.952-298.666667A148.544 148.544 0 0 0 786.176 21.333333z" fill="#EAD8C5" /><path d="M234.666667 533.333333H42.666667a21.333333 21.333333 0 0 1-21.333334-21.333333V42.666667a21.333333 21.333333 0 0 1 21.333334-21.333334h192v512z" fill="#444444" /></svg>',
+        cancelButtonAriaLabel: 'Thumbs down'
+      })
 }
 
 //! EVENTOS
@@ -292,6 +312,10 @@ selectOrden.addEventListener('change', () => {
 
 btnCarrito.addEventListener('click', () => {
     adjuntarProductosAlCarrito(productosEnCarrito)
+})
+
+btnFinalizarCompra.addEventListener('click', ()=>{
+    finalizarCompra()
 })
 
 //! CODIGO
