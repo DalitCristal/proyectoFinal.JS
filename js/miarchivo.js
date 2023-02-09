@@ -191,7 +191,7 @@ function adjuntarProductosAlCarrito(array) {
     
     array.forEach((planta) => {
         modal_bodyCarrito.innerHTML += `
-        <div class="card border-primary mb-3 cardCarrito" id="${planta.id}">
+        <div class="card border-primary mb-3 cardCarrito" id="planta${planta.id}">
             <img src="../archivos/${planta.imagen}" class="card-img-top" height="100px" alt="${planta.nombre}">
             <div class="card-body">
                 <h5 class="card-title">${planta.nombre}</h5>
@@ -234,7 +234,17 @@ function adjuntarProductosAlCarrito(array) {
 function listaProdcutosEliminar(array) {
     array.forEach((planta)=> {
         document.getElementById(`btnEliminar${planta.indice}`).addEventListener('click', ()=>{
-            console.log(`btn ${planta.indice} elimiar funciona`);
+            //Borrar del DOM
+            let cardProducto = document.getElementById(`planta${planta.id}`)
+            cardProducto.remove()
+            // Detecto la posicion en el array productosEnCarrito
+            let posicion = array.indexOf(planta)
+            //Posicion donde comienza y cantidad a eliminar
+            array.splice(posicion, 1)
+            //eliminamos del storage
+            localStorage.setItem('carrito', JSON.stringify(array))
+            // recalculamos el precio de la suma del carrito
+            compraTotal(array)
         })
     })
 }
