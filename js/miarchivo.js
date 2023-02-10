@@ -48,18 +48,15 @@ if (localStorage.getItem('listadoDePlantas')) {
     for (const plant of JSON.parse(localStorage.getItem('listadoDePlantas'))) {
         let plantaStorage = new Planta (plant.indice, plant.nombre, plant.familia, plant.precio, plant.imagen)
         listadoDePlantas.push(plantaStorage)
-        console.log(listadoDePlantas);
     }
 } else {
     console.log('Esta es la 1ra vez');
     listadoDePlantas.push(plantA, plantB, plantC, plantD, plantE, plantF, plantG, plantH, plantI, plantJ, plantK, plantL, plantM, plantN, plantO, plantP, plantQ, plantR, plantS, plantT, plantU, plantV, plantW, plantX)
     localStorage.setItem('listadoDePlantas', JSON.stringify(listadoDePlantas))
 }
-console.log(listadoDePlantas);
 
 //! CONDICIONAL
 let productosEnCarrito = JSON.parse(localStorage.getItem('carrito')) || []
-console.log(productosEnCarrito);
 //! APLICANDO DOM
 let $divPlants = document.querySelector('#plants') 
 let $guardarPlantaBtn = document.getElementById('formBtn') 
@@ -92,7 +89,7 @@ function listaProductos(array) {
         `
         $divPlants.appendChild(newPlantDiv)
         let agregarBtn = document.getElementById(`agregarBtn${p.indice}`)
-        console.log(agregarBtn);
+        
         agregarBtn.onclick = ()=>{
 
             agregarAlCarrito(p)
@@ -147,16 +144,31 @@ function cargarPlanta(array) {
     let $inputFamilia = document.getElementById('familiaInput') 
     let $inputPrecio = document.getElementById('precioInput') 
 
-    const nuevaPlanta = new Planta(array.length+1, $inputNombre.value, $inputFamilia.value, Number($inputPrecio.value), 'planta_new.jpg')
-    console.log(nuevaPlanta);
+    if ($inputNombre.value != '' && isNaN($inputNombre.value) && $inputFamilia.value != '' && isNaN($inputFamilia.value) && $inputPrecio.value != '') {
+        
+        const nuevaPlanta = new Planta(array.length+1, $inputNombre.value, $inputFamilia.value, Number($inputPrecio.value), 'planta_new.jpg')
+        console.log(nuevaPlanta);
+    
+        array.push(nuevaPlanta)
+        localStorage.setItem('listadoDePlantas', JSON.stringify(array))
+        listaProductos(array)
+        let cargarPlantasNuevas = document.querySelector('#cargarPlantasNuevas')
+        
+        cargarPlantasNuevas.reset()
+        notificacionToastify()
 
-    array.push(nuevaPlanta)
-    localStorage.setItem('listadoDePlantas', JSON.stringify(array))
-    listaProductos(array)
-    let cargarPlantasNuevas = document.querySelector('#cargarPlantasNuevas')
-    console.log(cargarPlantasNuevas);
-    cargarPlantasNuevas.reset()
-    notificacionToastify()
+    } else {
+        Toastify({
+            text: 'Ingrese la información correctamente por favor',
+            duration: 2000,
+            gravity: "top",
+            position: "right",
+            style: {
+              background: "linear-gradient(to right, #f3f3f3, #DDC297)",
+              color: '#000'
+            },
+        }).showToast();
+    }
 }
 
 function notificacionToastify() {
