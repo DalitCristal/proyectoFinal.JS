@@ -17,12 +17,6 @@ class Planta {
         let precioConIva = this.precio *1.21
         return precioConIva
     }
-    restarCantidad(){
-        return this.cantidad = this.cantidad - 1
-    }
-    sumarCantidad(){
-        return this.cantidad = this.cantidad + 1    
-    }
     restarUnidad(){
         this.cantidadUsuario = this.cantidadUsuario - 1
         return this.cantidadUsuario
@@ -127,15 +121,8 @@ function listaProductos(array) {
         $divPlants.appendChild(newPlantDiv)
 
         let agregarBtn = document.getElementById(`agregarBtn${p.indice}`)
-        let cantDisp = document.querySelector(`#cantDisp${p.indice}`)
         agregarBtn.addEventListener('click', ()=>{
             agregarAlCarrito(p)
-            cantDisp.innerHTML= `
-            Unidades disponibles: ${p.restarCantidad()}
-            `
-            listadoDePlantas.push(cantDisp)
-            localStorage.setItem('listadoDePlantas', JSON.stringify(listadoDePlantas))
-            return cantDisp
         } 
     )}
 }
@@ -339,12 +326,6 @@ function sumarUnidadEnElCarrito(array) {
             planta.sumarUnidad()
             localStorage.setItem('carrito', JSON.stringify(array))
             agregarProductosAlBodyTableCarrito(array)
-        })
-
-        document.getElementById(`btnSumarUnidad${planta.indice}`).addEventListener('click', ()=>{
-            let nuevaCant = planta.restarCantidad()
-            listadoDePlantas.push(nuevaCant)
-            localStorage.setItem('listadoDePlantas', JSON.stringify(listadoDePlantas))
         })
     })
 }
