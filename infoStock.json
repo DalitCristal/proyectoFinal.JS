@@ -1,0 +1,194 @@
+[
+    {
+        "indice": 1,
+        "nombre": "Lechuga",
+        "familia": "hortalizas",
+        "precio": 100,
+        "imagen": "planta_de_lechuga.jpg",
+        "cantidad": 1000
+    },
+    {
+        "indice": 2,
+        "nombre": "Tomate",
+        "familia": "hortalizas",
+        "precio": 100,
+        "imagen": "planta_de_tomate.jpg",
+        "cantidad": 1050
+    },
+    {
+        "indice": 3,
+        "nombre": "Alcaucil",
+        "familia": "hortalizas",
+        "precio": 100,
+        "imagen": "planta_de_alcaucil.jpg",
+        "cantidad": 1200
+    },
+    {
+        "indice": 4,
+        "nombre": "Berenjena",
+        "familia": "hortalizas",
+        "precio": 100,
+        "imagen": "planta_de_berenjena.jpg",
+        "cantidad": 980
+    },
+    {
+        "indice": 5,
+        "nombre": "Pimiento rojo",
+        "familia": "Hortalizas",
+        "precio": 100,
+        "imagen": "planta_de_pimiento.jpg",
+        "cantidad": 555
+    },
+    {
+        "indice": 6,
+        "nombre": "Zanahoria",
+        "familia": "Hortalizas",
+        "precio": 100,
+        "imagen": "planta_de_zanahoria.jpg",
+        "cantidad": 1234
+    },
+    {
+        "indice": 7,
+        "nombre": "Romero",
+        "familia": "Aromaticas",
+        "precio": 300,
+        "imagen": "planta_de_romero.jpg",
+        "cantidad": 890
+    },
+    {
+        "indice": 8,
+        "nombre": "Albahaca",
+        "familia": "Aromaticas",
+        "precio": 300,
+        "imagen": "planta_de_albahaca.jpg",
+        "cantidad": 1090
+    },
+    {
+        "indice": 9,
+        "nombre": "Lavanda",
+        "familia": "Aromaticas",
+        "precio": 300,
+        "imagen": "planta_de_lavanda.jpg",
+        "cantidad": 987
+    },
+    {
+        "indice": 10,
+        "nombre": "Salvia",
+        "familia": "Aromaticas",
+        "precio": 300,
+        "imagen": "planta_de_salvia.jpg",
+        "cantidad": 999
+    },
+    {
+        "indice": 11,
+        "nombre": "Tomillo",
+        "familia": "Aromaticas",
+        "precio": 300,
+        "imagen": "planta_de_tomillo.jpg",
+        "cantidad": 887
+    },
+    {
+        "indice": 12,
+        "nombre": "Incienso",
+        "familia": "Aromaticas",
+        "precio": 300,
+        "imagen": "planta_de_incienso.jpg",
+        "cantidad": 789
+    },
+    {
+        "indice": 13,
+        "nombre": "Menta",
+        "familia": "Aromaticas",
+        "precio": 300,
+        "imagen": "planta_de_menta.jpg",
+        "cantidad": 965
+    },
+    {
+        "indice": 14,
+        "nombre": "Cedron",
+        "familia": "Aromaticas",
+        "precio": 300,
+        "imagen": "planta_de_cedron.jpg",
+        "cantidad": 922
+    },
+    {
+        "indice": 15,
+        "nombre": "Oregano",
+        "familia": "Aromaticas",
+        "precio": 300,
+        "imagen": "planta_de_oregano.jpg",
+        "cantidad": 910
+    },
+    {
+        "indice": 16,
+        "nombre": "Rosa del desierto",
+        "familia": "Suculentas",
+        "precio": 400,
+        "imagen": "planta_rosa_del_desierto.jpg",
+        "cantidad": 932
+    },
+    {
+        "indice": 17,
+        "nombre": "Oreja de shrek",
+        "familia": "Suculentas",
+        "precio": 400,
+        "imagen": "planta_orejas_de_shrek.jpg",
+        "cantidad": 943
+    },
+    {
+        "indice": 18,
+        "nombre": "Cactus piedra",
+        "familia": "Suculentas",
+        "precio": 400,
+        "imagen": "planta_cactus_piedra.jpg",
+        "cantidad": 1003
+    },
+    {
+        "indice": 19,
+        "nombre": "Cola de burro",
+        "familia": "Suculentas",
+        "precio": 400,
+        "imagen": "planta_cola_de_burro.jpg",
+        "cantidad": 932
+    },
+    {
+        "indice": 20,
+        "nombre": "Rosario",
+        "familia": "Suculentas",
+        "precio": 400,
+        "imagen": "planta_rosario.jpg",
+        "cantidad": 889
+    },
+    {
+        "indice": 21,
+        "nombre": "Kalanchoe tomentosa",
+        "familia": "Suculentas",
+        "precio": 400,
+        "imagen": "planta_kalanchoe_tomentosa.jpg",
+        "cantidad": 990
+    },
+    {
+        "indice": 22,
+        "nombre": "Castello",
+        "familia": "Suculentas",
+        "precio": 400,
+        "imagen": "planta_castello_paivae.jpg",
+        "cantidad": 1001
+    },
+    {
+        "indice": 23,
+        "nombre": "Arbol de jade",
+        "familia": "Suculentas",
+        "precio": 400,
+        "imagen": "planta_arbol_de_jade.jpg",
+        "cantidad": 777
+    },
+    {
+        "indice": 24,
+        "nombre": "Perforata",
+        "familia": "Suculentas",
+        "precio": 400,
+        "imagen": "planta_perforata.jpg",
+        "cantidad": 992
+    }
+]
