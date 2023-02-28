@@ -135,7 +135,7 @@ p {
 .cardCarrito {
   display: flex;
   align-items: center;
-  max-width: 540px;
+  width: 580px;
   background-color: var(--third-color);
 }
 
@@ -218,6 +218,11 @@ p {
   padding: 0.5rem;
   width: 100px;
   height: 100px;
+}
+
+.modal-content {
+  width: 615px;
+  height: 50%;
 }
 
 .navEstilosPropios {
