@@ -1,40 +1,15 @@
-//? Este es mi proyecto, tiene por objetivo brindar un servicio de E-commerce basándose en un vivero.   Tiene la funcionalidad de agregar un nuevo producto (planta) al stock, también se puede realizar una búsqueda ordenada de manera alfabética y por precios, mayor y menor o viceversa.   Tiene un buscador por nombre de planta.    Cada producto tiene su botón para agregar al carrito si el usuario lo desea, allí se calcula su costo total con los detalles de dicha selección. Si el  usuario quiere puede agregar o eliminar productos del carrito. Por ultimo cuando ya este decidido se encuentra su botón Finalizar compra, finalizando así el simulador 
+//? Este es mi proyecto, tiene por objetivo brindar un servicio de E-commerce basándose en un vivero.   Tiene la funcionalidad de agregar un nuevo producto (planta) al stock, también se puede realizar una búsqueda ordenada de manera alfabética y por precios, mayor y menor o viceversa.   También tiene un buscador por nombre.    Cada producto tiene su botón para agregar al carrito si el usuario lo desea, allí se calcula su costo total con los detalles de dicha selección. Si el  usuario quiere puede agregar o eliminar productos del carrito. Por ultimo cuando ya este decidido se encuentra su botón Finalizar compra, finalizando así el simulador 
 
 //! CLASS CONSTRUCTORA
-
-class PlantaCarrito {
-    constructor(indice, nombre, familia, precio, imagen, cantidad){ 
-        this.indice = indice,
-        this.nombre = nombre,
-        this.familia = familia,
-        this.precio = precio,
-        this.imagen = imagen,
-        this.cantidad = cantidad
-    }
-    //* Métodos
-    agregamosIva(){
-        let precioConIva = this.precio * 1.21
-        return precioConIva
-    }
-    restarUnidad(){
-        this.cantidad -= 1
-    }
-    sumarUnidad(){
-        this.cantidad += 1    
-    }
-}
-
-//* Esta clase se encarga de crear un molde para nuestros actuales y futuros productos, con los atributos que considero pertinentes para los detalles que los mismos a la hora de la venta
 class Planta {
-    constructor(indice, nombre, familia, precio, imagen, cantidad){ 
+    constructor(indice, nombre, familia, precio, imagen){ 
         this.indice = indice,
         this.nombre = nombre,
         this.familia = familia,
         this.precio = precio,
         this.imagen = imagen,
-        this.cantidad = cantidad
+        this.cantidad = 1
     }
-    //* Métodos
     agregamosIva(){
         let precioConIva = this.precio *1.21
         return precioConIva
@@ -47,25 +22,23 @@ class Planta {
     }
 }
 
-//* Este array "listadoDePlantas[]" estará conteniendo todos los objetos que tendremos en stock
 let listadoDePlantas = []
 
-//* Creo una función "cargarListadoDePlantas()" para hacer una peticion(GET) al archivo JSON y la información capturada en data me sirve para instanciar los objetos con la class constructora
+//* La función "cargarListadoDePlantas()" para hacer una peticion(GET) al archivo JSON 
 const cargarListadoDePlantas = async () => {
     const response = await fetch("../infoStock.json")
     const data = await response.json()
     for(let plant of data){
-        let plantaNueva = new Planta(plant.indice, plant.nombre, plant.familia, plant.precio, plant.imagen, plant.cantidad)
+        let plantaNueva = new Planta(plant.indice, plant.nombre, plant.familia, plant.precio, plant.imagen)
         
         listadoDePlantas.push(plantaNueva)
     }
     localStorage.setItem('listadoDePlantas', JSON.stringify(listadoDePlantas))
 }
 
-//* Este condicional es creado para evaluar si existe o no algo en el storage
 if (localStorage.getItem('listadoDePlantas')) {
     for (const plant of JSON.parse(localStorage.getItem('listadoDePlantas'))) {
-        let plantaStorage = new Planta (plant.indice, plant.nombre, plant.familia, plant.precio, plant.imagen, plant.cantidad)
+        let plantaStorage = new Planta (plant.indice, plant.nombre, plant.familia, plant.precio, plant.imagen)
         listadoDePlantas.push(plantaStorage)
     }
 } else {
@@ -98,18 +71,16 @@ let $btnFinalizarCompra = document.querySelector('#btnFinalizarCompra')
 let $bodyTable = document.querySelector('#bodyTable')
 
 //! CONDICIONAL CARRITO
-//* Este condicional será el contenedor de todos los productos que el usuario desee colocar en el carrito de compras
 let productosEnCarrito = []
 if (localStorage.getItem('carrito')) {
     for (let plant of JSON.parse(localStorage.getItem('carrito'))) {
 
         let cantStorage = plant.cantidad
        
-        let planta = new Planta (plant.indice, plant.nombre, plant.familia, plant.precio, plant.imagen, plant.cantidad)
+        let planta = new Planta (plant.indice, plant.nombre, plant.familia, plant.precio, plant.imagen)
        
         planta.cantidad = cantStorage
         
-
         productosEnCarrito.push(planta)
     }
 } else {
@@ -119,8 +90,7 @@ if (localStorage.getItem('carrito')) {
 
 
 //! FUNCTIONS
-//* La función "listaProductos()" se encarga de recibir un array como parametro el cual lo recorre y creando una card vuelca la informacion requerida en el DOM.    Dicha card tiene un boton con un id único por cada producto, este btn es capturado y se le asigna un evento para que cuando el cliente haga "click" este llame a la funcion "agregarAlCarrito()"
-
+//* La función recorre un array y va creando una card por cada producto, luego vuelca la informacion requerida en el DOM.
 function listaProductos(array) {
     $divPlants.innerHTML = ''
 
@@ -135,9 +105,6 @@ function listaProductos(array) {
                 <h5 class="card-title">${p.nombre}</h5>
                 <p class="card-text">Familia: ${p.familia}</p>
                 <p class="card-text">Precio: $${p.agregamosIva()}</p>
-                <div id="modifCant${p.indice}">
-                    <p class="card-text" id="cantDisp${p.indice}">Unidades disponibles: ${p.cantidad}</p>
-                </div>
                 <a id="agregarBtn${p.indice}" class="btn btn-primary">Agregar al carrito</a>
             </div>
         </div>
@@ -150,15 +117,14 @@ function listaProductos(array) {
     }
 }
 
-
-//* La funcion "compraTotal()" se encarga de hacer la suma de todos los productos que esten dentro del array.  Luego tiene un condicional, este evalua si hay algun producto o no en carrito y en base a dicha evaluación modifica el DOM
+//* "compraTotal()" se encarga de hacer la suma de todos los productos que esten dentro del array.
 function compraTotal(array) {
     let total = array.reduce((acc, producto) => acc + (producto.agregamosIva() * producto.cantidad), 0)
 
     total === 0 ? ($precioTotal.innerHTML = `El carrito se encuentra vacio`) : ($precioTotal.innerHTML = `El precio total es $${total}`)
 }
 
-//* Esta función como su nombre lo indica "alertSeAgregoAlCarrito()" le avisa al usuario cada vez que algun producto es agregado al carrito
+//* Avisa al usuario cada vez que algun producto es agregado al carrito
 function alertSeAgregoAlCarrito(planta) {
     Swal.fire({
         position: 'center',
@@ -170,7 +136,7 @@ function alertSeAgregoAlCarrito(planta) {
     })
 }
 
-//* La función "existeProductoEnCarrito()" avisa al usuario que ya existe este producto en carrito y le pregunta si quiere agregarlo por segunda vez o no. En base a la respuesta actua en consecuencia 
+//* Avisa al usuario que ya existe este producto en carrito
 function existeProductoEnCarrito(planta) {
     if (planta != '') {
         Swal.fire({
@@ -203,23 +169,19 @@ function existeProductoEnCarrito(planta) {
     } 
 }
 
-
+//* Esta funcion agrega el produto seleccionado por el cliente
 function agregarAlCarrito(planta) {
     let productoAgregado = productosEnCarrito.find((elem)=> elem.indice === planta.indice)
     if (productoAgregado === undefined) {
         alertSeAgregoAlCarrito(planta)
-        let plantaCarri = new PlantaCarrito (planta.indice, planta.nombre, planta.familia, planta.precio, planta.imagen, 1)
-        productosEnCarrito.push(plantaCarri)        
-        planta.cantidad -= 1
-        console.log(plantaCarri)
-        console.log(planta)
-        localStorage.setItem('listadoDePlantas', JSON.stringify(listadoDePlantas))
+        productosEnCarrito.push(planta)        
         localStorage.setItem('carrito', JSON.stringify(productosEnCarrito))
     } else {
         existeProductoEnCarrito(planta)
     }
 }
 
+//* Se encarga de agregar productos nuevos al stock 
 function cargarPlanta(array) {
     let $inputNombre = document.getElementById('nombreInput') 
     let $inputFamilia = document.getElementById('familiaInput') 
@@ -251,7 +213,7 @@ function cargarPlanta(array) {
     }
 }
 
-//* La función "notificacionToastify()" se ejecuta una vez que se ha cargado un nuevo producto correctamente
+//* Esta función se ejecuta una vez que se ha cargado un nuevo producto correctamente
 function notificacionToastify() {
     Toastify({
         text: 'La planta ha sido agregada con exito al stock',
@@ -265,7 +227,7 @@ function notificacionToastify() {
     }).showToast();
 }
 
-//* La función "busqueda()" le permite al usuario comenzar una busqueda parcial(filter) a través del input por nombre o familia.    Tiene un condicional el cual si encuentra coincidencias se las muestra al usuario, caso contrario le avisa que no hay resultados.
+//* "busqueda()" le permite al usuario comenzar una busqueda parcial(filter) a través del input por nombre o familia
 function busqueda(buscado, array) {
     let buscadorInput = array.filter(
             (planta) => planta.familia.toLowerCase().includes(buscado) || planta.nombre.toLowerCase().includes(buscado)
@@ -274,9 +236,8 @@ function busqueda(buscado, array) {
 
 }
 
-//* La función "agregarProductosAlBodyTableCarrito()" se encarga de que los productos que esten en el carrito (previamente seleccionados por el cliente) sean añadidos al DOM. Esto lo logra modificando la etiqueta capturada "$bodyTable" para asi colocar la informacion de forma ordenada.  Al final llama a las funciones "eliminarTodoProductoDeCarrito()", "sumarUnidadEnElCarrito()", "restarUnidadDelCarrito()", "compraTotal(array)"
-    
-function agregarProductosAlBodyTableCarrito(array, array2) {
+//* Esta se encarga de que los productos que esten en el carrito (previamente seleccionados por el cliente) sean añadidos al DOM. 
+function agregarProductosAlBodyTableCarrito(array) {
     $bodyTable.innerHTML = ''
     
     array.forEach((planta) => {
@@ -326,12 +287,12 @@ function agregarProductosAlBodyTableCarrito(array, array2) {
         `
     });
     eliminarTodoProductoDeCarrito(array)
-    sumarUnidadEnElCarrito(array, array2)
+    sumarUnidadEnElCarrito(array)
     restarUnidadDelCarrito(array)
     compraTotal(array)
 }
 
-//* El usuario puede eliminar todos los productos del carrito
+//* El usuario puede eliminar todos los productos del carrito que tengan la misma id
 function eliminarTodoProductoDeCarrito(array) {
     array.forEach((planta)=> {
         document.getElementById(`btnEliminar${planta.indice}`).addEventListener('click', ()=>{
@@ -346,26 +307,19 @@ function eliminarTodoProductoDeCarrito(array) {
     })
 }
 
-//* El cliente puede sumar de una cantidad si lo desea
-function sumarUnidadEnElCarrito(array, array2) {
+//* El cliente puede sumar de una cantidad
+function sumarUnidadEnElCarrito(array) {
     array.forEach((planta)=> {
         document.getElementById(`btnSumarUnidad${planta.indice}`).addEventListener('click', ()=>{
             planta.sumarUnidad()
-            let plantaEnLista = array2.find((plant) => plant.indice == planta.indice)
-            plantaEnLista.restarUnidad()
-            let elementoCant = document.getElementById(`modifCant${plantaEnLista.indice}`)
-            let par = document.createElement("p")
-            par.innerHTML = `<p class="card-text" id="cantDisp${plantaEnLista.indice}">Unidades disponibles: ${plantaEnLista.cantidad}</p>`
-            elementoCant.replaceChild(par, elementoCant.firstElementChild)
-            localStorage.setItem('listadoDePlantas', JSON.stringify(array2))
             localStorage.setItem('carrito', JSON.stringify(array))
-            agregarProductosAlBodyTableCarrito(array, array2)
+            agregarProductosAlBodyTableCarrito(array)
         })
     })
 }
 
-//* El cliente puede restar de una cantidad si lo desea
-function restarUnidadDelCarrito(array, array2) {
+//* El cliente puede restar de una cantidad
+function restarUnidadDelCarrito(array) {
     array.forEach((planta)=> {
         document.getElementById(`btnRestarUnidad${planta.indice}`).addEventListener('click', ()=>{
             let cant = planta.restarUnidad()
@@ -379,7 +333,7 @@ function restarUnidadDelCarrito(array, array2) {
             } else {
                 localStorage.setItem('carrito', JSON.stringify(array))
             }
-            agregarProductosAlBodyTableCarrito(array, array2)
+            agregarProductosAlBodyTableCarrito(array)
         })
     })
 }
@@ -468,7 +422,6 @@ $inputBuscador.addEventListener('input', ()=> {
 })
 
 $selectOrden.addEventListener('change', () => {
-    console.log($selectOrden.value);   
     if ($selectOrden.value === '1') {
         ordenarMayorMenor(listadoDePlantas)
     } else if ($selectOrden.value === '2') {
@@ -489,7 +442,6 @@ $btnFinalizarCompra.addEventListener('click', ()=>{
 })
 
 //! CODIGO
-//* Se ejecuta la funcion tras un periodo de tiempo determinado
 setTimeout(() => {
     $loaderTexto.innerHTML = ''
     $loader.remove()
