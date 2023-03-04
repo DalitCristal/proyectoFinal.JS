@@ -15,7 +15,7 @@ class Planta {
         return precioConIva
     }
     restarUnidad(){
-        this.cantidad -= 1
+        return this.cantidad -= 1
     }
     sumarUnidad(){
         this.cantidad += 1    
@@ -23,7 +23,6 @@ class Planta {
 }
 
 let listadoDePlantas = []
-
 //* La función "cargarListadoDePlantas()" para hacer una peticion(GET) al archivo JSON 
 const cargarListadoDePlantas = async () => {
     const response = await fetch("../infoStock.json")
@@ -77,10 +76,9 @@ if (localStorage.getItem('carrito')) {
 
         let cantStorage = plant.cantidad
        
-        let planta = new Planta (plant.indice, plant.nombre, plant.familia, plant.precio, plant.imagen)
+        let planta = new Planta(plant.indice, plant.nombre, plant.familia, plant.precio, plant.imagen)
        
         planta.cantidad = cantStorage
-        
         productosEnCarrito.push(planta)
     }
 } else {
@@ -310,7 +308,7 @@ function eliminarTodoProductoDeCarrito(array) {
 //* El cliente puede sumar de una cantidad
 function sumarUnidadEnElCarrito(array) {
     array.forEach((planta)=> {
-        document.getElementById(`btnSumarUnidad${planta.indice}`).addEventListener('click', ()=>{
+        document.querySelector(`#btnSumarUnidad${planta.indice}`).addEventListener('click', ()=>{
             planta.sumarUnidad()
             localStorage.setItem('carrito', JSON.stringify(array))
             agregarProductosAlBodyTableCarrito(array)
@@ -448,3 +446,6 @@ setTimeout(() => {
     
     listaProductos(listadoDePlantas)
 }, 1500)
+
+//!ERROR
+/* Cuando agregamos cantidad a través del btn "agregar al carrito" funciona. Pero cuando quedan produtos dentro del carrito y se recarga la página ya no funciona. */
